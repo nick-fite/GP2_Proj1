@@ -34,10 +34,7 @@ public:
 
 private:
 	UFUNCTION() void Move(const FInputActionValue& InputValue);
-	UFUNCTION() void JumpAct(const FInputActionValue& InputValue);
-	UFUNCTION() void CrouchAct(const FInputActionValue& InputValue);
-	UFUNCTION() FVector GetMoveForwardDir() const;
-	UFUNCTION() FVector GetMoveRightDir() const;
+	//UFUNCTION() void Crouch(const FInputActionValue& InputValue);
 
 	
 	UPROPERTY(EditAnywhere, category="Input") UInputMappingContext* MappingContext;

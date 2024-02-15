@@ -58,8 +58,8 @@ void ASimpleCharacterFunctional::SetupPlayerInputComponent(UInputComponent* Play
 	if(UEnhancedInputComponent* enhancedInputComp = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		enhancedInputComp->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::Move);
-		enhancedInputComp->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::JumpAct);
-		enhancedInputComp->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::CrouchAct);
+		enhancedInputComp->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::Jump);
+		//enhancedInputComp->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::Crouch);
 	}
 }
 
@@ -68,29 +68,10 @@ void ASimpleCharacterFunctional::Move(const FInputActionValue& InputValue)
 	float input = InputValue.Get<float>();
 	
 	UE_LOG(LogTemp, Warning, TEXT("%f"), input);
-	AddMovementInput(GetActorForwardVector() * input);
+	AddMovementInput(FVector(0,1,0) * input);
 }
 
-void ASimpleCharacterFunctional::JumpAct(const FInputActionValue& InputValue)
+/*void ASimpleCharacterFunctional::Crouch(const FInputActionValue& InputValue)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Jump"));
-
-}
-
-void ASimpleCharacterFunctional::CrouchAct(const FInputActionValue& InputValue)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Crouch"));
-}
-
-FVector ASimpleCharacterFunctional::GetMoveForwardDir() const
-{
-	FVector cameraForward = ViewCamera->GetForwardVector();
-	cameraForward.Z = 0;
-	return cameraForward.GetSafeNormal();
-}
-
-FVector ASimpleCharacterFunctional::GetMoveRightDir() const
-{
-	return ViewCamera->GetRightVector();
-}
-
+	
+}*/
