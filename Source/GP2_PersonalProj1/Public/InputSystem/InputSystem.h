@@ -41,7 +41,7 @@ private:
 
 
 public:
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Fighting Game Inputs")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Fighting Game Inputs")
 	TArray<EInputType> CurrentInputs;
 	
 	UFUNCTION() void AddToInputs(EInputType input);

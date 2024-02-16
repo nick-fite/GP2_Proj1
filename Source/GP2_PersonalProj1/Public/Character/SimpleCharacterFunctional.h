@@ -36,6 +36,10 @@ public:
 
 private:
 	UFUNCTION() void Move(const FInputActionValue& InputValue);
+	UFUNCTION() void AddFightingGameInputUp();
+	UFUNCTION() void AddFightingGameInputDown();
+	UFUNCTION() void AddFightingGameInputLeft();
+	UFUNCTION() void AddFightingGameInputRight();
 
 	UPROPERTY(VisibleAnywhere, Category="Fighting Game Input") UInputSystem* FightingInput;
 	UPROPERTY(EditAnywhere, category="Input") UInputMappingContext* MappingContext;
@@ -43,10 +47,14 @@ private:
 	UPROPERTY(visibleAnywhere, Category="View") UCameraComponent* ViewCamera;
 	
 public:
-	UFUNCTION(BlueprintCallable, Category="Fighting Game Input") void AddFightingGameInput(EInputType input);
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* MoveAction;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* JumpAction;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* CrouchAction;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Fighting Game Input") UInputAction* FightingInputUpAction;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Fighting Game Input") UInputAction* FightingInputDownAction;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Fighting Game Input") UInputAction* FightingInputLeftAction;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Fighting Game Input") UInputAction* FightingInputRightAction;
 
 };

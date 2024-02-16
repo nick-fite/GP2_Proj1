@@ -61,6 +61,13 @@ void ASimpleCharacterFunctional::SetupPlayerInputComponent(UInputComponent* Play
 	{
 		enhancedInputComp->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::Move);
 		enhancedInputComp->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::Jump);
+		
+		enhancedInputComp->BindAction(FightingInputLeftAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::AddFightingGameInputLeft);
+		enhancedInputComp->BindAction(FightingInputRightAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::AddFightingGameInputRight);
+		enhancedInputComp->BindAction(FightingInputUpAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::AddFightingGameInputUp);
+		enhancedInputComp->BindAction(FightingInputDownAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::AddFightingGameInputDown);
+
+
 		//enhancedInputComp->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::Crouch);
 	}
 }
@@ -73,8 +80,24 @@ void ASimpleCharacterFunctional::Move(const FInputActionValue& InputValue)
 	AddMovementInput(FVector(0,1,0) * input);
 }
 
-void ASimpleCharacterFunctional::AddFightingGameInput(EInputType input)
+void ASimpleCharacterFunctional::AddFightingGameInputUp()
 {
-	FightingInput->AddToInputs(input);
+	FightingInput->AddToInputs(EInputType::Up);
 }
+
+void ASimpleCharacterFunctional::AddFightingGameInputDown()
+{
+	FightingInput->AddToInputs(EInputType::Down);
+}
+
+void ASimpleCharacterFunctional::AddFightingGameInputLeft() 
+{
+	FightingInput->AddToInputs(EInputType::Left);
+}
+
+void ASimpleCharacterFunctional::AddFightingGameInputRight()
+{
+	FightingInput->AddToInputs(EInputType::Right);
+}
+
 
