@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "SimpleCharacterFunctional.generated.h"
 
+enum class EInputType : uint8;
+class UInputSystem;
 class UInputAction;
 class UCameraComponent;
 class USpringArmComponent;
@@ -34,17 +36,17 @@ public:
 
 private:
 	UFUNCTION() void Move(const FInputActionValue& InputValue);
-	UFUNCTION() void FightingGameJump(const FInputActionValue& InputValue);
 
-	
+	UPROPERTY(VisibleAnywhere, Category="Fighting Game Input") UInputSystem* FightingInput;
 	UPROPERTY(EditAnywhere, category="Input") UInputMappingContext* MappingContext;
 	UPROPERTY(visibleAnywhere, Category="View") USpringArmComponent* CameraBoom;
 	UPROPERTY(visibleAnywhere, Category="View") UCameraComponent* ViewCamera;
 	
 public:
+	UFUNCTION(BlueprintCallable, Category="Fighting Game Input") void AddFightingGameInput(EInputType input);
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* MoveAction;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* JumpAction;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* CrouchAction;
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, category="Character Stats") int JumpNum;
-	UPROPERTY(BlueprintReadOnly, category="Character stats") int curJumpNum{2};
+
 };

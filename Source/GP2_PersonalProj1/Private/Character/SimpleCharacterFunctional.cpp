@@ -7,6 +7,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "InputSystem/InputSystem.h"
 
 
 // Sets default values
@@ -17,7 +18,8 @@ ASimpleCharacterFunctional::ASimpleCharacterFunctional()
 	
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>("Camera Boom");
 	ViewCamera = CreateDefaultSubobject<UCameraComponent>("View Camera");
-
+	FightingInput = CreateDefaultSubobject<UInputSystem>("Fighting Input");
+	
 	CameraBoom->SetupAttachment(GetRootComponent());
 	ViewCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 
@@ -58,7 +60,7 @@ void ASimpleCharacterFunctional::SetupPlayerInputComponent(UInputComponent* Play
 	if(UEnhancedInputComponent* enhancedInputComp = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		enhancedInputComp->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::Move);
-		enhancedInputComp->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::FightingGameJump);
+		enhancedInputComp->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::Jump);
 		//enhancedInputComp->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::Crouch);
 	}
 }
@@ -67,21 +69,12 @@ void ASimpleCharacterFunctional::Move(const FInputActionValue& InputValue)
 {
 	float input = InputValue.Get<float>();
 	
-	UE_LOG(LogTemp, Warning, TEXT("%f"), input);
+	//UE_LOG(LogTemp, Warning, TEXT("%f"), input);
 	AddMovementInput(FVector(0,1,0) * input);
 }
 
-void ASimpleCharacterFunctional::FightingGameJump(const FInputActionValue& InputValue)
+void ASimpleCharacterFunctional::AddFightingGameInput(EInputType input)
 {
-	UE_LOG(LogTemp, Warning, TEXT("jump"));
-	if(curJumpNum > 0)
-	{
-		curJumpNum--;
-		Jump();
-	}
+	FightingInput->AddToInputs(input);
 }
 
-/*void ASimpleCharacterFunctional::Crouch(const FInputActionValue& InputValue)
-{
-	
-}*/
