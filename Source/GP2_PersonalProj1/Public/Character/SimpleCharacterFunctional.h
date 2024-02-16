@@ -34,7 +34,7 @@ public:
 
 private:
 	UFUNCTION() void Move(const FInputActionValue& InputValue);
-	//UFUNCTION() void Crouch(const FInputActionValue& InputValue);
+	UFUNCTION() void FightingGameJump(const FInputActionValue& InputValue);
 
 	
 	UPROPERTY(EditAnywhere, category="Input") UInputMappingContext* MappingContext;
@@ -45,6 +45,6 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* MoveAction;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* JumpAction;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* CrouchAction;
-
-	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, category="Character Stats") int JumpNum;
+	UPROPERTY(BlueprintReadOnly, category="Character stats") int curJumpNum{2};
 };

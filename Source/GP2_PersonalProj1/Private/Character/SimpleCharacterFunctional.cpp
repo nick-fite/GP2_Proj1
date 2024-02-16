@@ -58,7 +58,7 @@ void ASimpleCharacterFunctional::SetupPlayerInputComponent(UInputComponent* Play
 	if(UEnhancedInputComponent* enhancedInputComp = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		enhancedInputComp->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::Move);
-		enhancedInputComp->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::Jump);
+		enhancedInputComp->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::FightingGameJump);
 		//enhancedInputComp->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &ASimpleCharacterFunctional::Crouch);
 	}
 }
@@ -69,6 +69,16 @@ void ASimpleCharacterFunctional::Move(const FInputActionValue& InputValue)
 	
 	UE_LOG(LogTemp, Warning, TEXT("%f"), input);
 	AddMovementInput(FVector(0,1,0) * input);
+}
+
+void ASimpleCharacterFunctional::FightingGameJump(const FInputActionValue& InputValue)
+{
+	UE_LOG(LogTemp, Warning, TEXT("jump"));
+	if(curJumpNum > 0)
+	{
+		curJumpNum--;
+		Jump();
+	}
 }
 
 /*void ASimpleCharacterFunctional::Crouch(const FInputActionValue& InputValue)
