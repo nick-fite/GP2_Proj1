@@ -28,7 +28,7 @@ void UInputSystem::BeginPlay()
 void UInputSystem::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
+	
 	// ...
 }
 
@@ -36,13 +36,12 @@ void UInputSystem::AddToInputs(EInputType input)
 {
 	UE_LOG(LogTemp, Warning, TEXT("%s"), *UEnum::GetValueAsString(input));	
 
+	FramesTillRestart = DefaultFramesTillRestart;
 	CurrentInputs.Add(input);
+}
 
-	TArray<EInputType> test {EInputType::Up, EInputType::Down, EInputType::Left, EInputType::Right};
-	if(CurrentInputs == test)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Combo Complete"));	
-		CurrentInputs.Empty();
-	}
+EInputType UInputSystem::CheckInputAtArrayPoint(int32 pointToCheck)
+{
+	return CurrentInputs[pointToCheck];
 }
 

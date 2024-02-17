@@ -18,7 +18,6 @@ enum class EInputType : uint8
 	Special
 };
 
-
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class GP2_PERSONALPROJ1_API UInputSystem : public UActorComponent
 {
@@ -37,6 +36,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 private:
+	UPROPERTY(EditDefaultsOnly) int DefaultFramesTillRestart{10};
 	UPROPERTY() int FramesTillRestart{10};
 
 
@@ -45,4 +45,11 @@ public:
 	TArray<EInputType> CurrentInputs;
 	
 	UFUNCTION() void AddToInputs(EInputType input);
+	UFUNCTION() EInputType CheckInputAtArrayPoint(int32 pointToCheck);
+
+	UFUNCTION()
+	void EmptyArray()
+	{
+		CurrentInputs.Empty();
+	}
 };

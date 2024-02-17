@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "InputSystem/InputSystem.h"
 #include "SimpleCharacterFunctional.generated.h"
 
 enum class EInputType : uint8;
@@ -40,6 +41,8 @@ private:
 	UFUNCTION() void AddFightingGameInputDown();
 	UFUNCTION() void AddFightingGameInputLeft();
 	UFUNCTION() void AddFightingGameInputRight();
+	
+	
 
 	UPROPERTY(VisibleAnywhere, Category="Fighting Game Input") UInputSystem* FightingInput;
 	UPROPERTY(EditAnywhere, category="Input") UInputMappingContext* MappingContext;
@@ -47,7 +50,45 @@ private:
 	UPROPERTY(visibleAnywhere, Category="View") UCameraComponent* ViewCamera;
 	
 public:
+	UFUNCTION(BlueprintPure)
+	static float FramesToWait(int framesToWait = 20)
+	{
+		return framesToWait/60.0f;
+	}
 	
+	UFUNCTION(BlueprintCallable, meta=(ExpandEnumAsExecs = "nextInput"))
+	void CheckInputAtArrayPoint(EInputType& nextInput, int32 pointToCheck)
+	{
+		if(FightingInput->CurrentInputs.Num() > pointToCheck)
+		{
+			nextInput = FightingInput->CheckInputAtArrayPoint(pointToCheck);
+			
+		}
+		else
+		{
+			EmptyCurrentMoves();
+		}
+	}
+
+	UFUNCTION(BlueprintCallable)
+	void EmptyCurrentMoves()
+	{
+		FightingInput->EmptyArray();
+	}
+
+	UFUNCTION(BlueprintCallable)
+	void LogStuff()	
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Combo Done"));
+
+	}
+	UFUNCTION(BlueprintCallable)
+	void LogOtherStuff()	
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Combo Two Done"));
+
+	}
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* MoveAction;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* JumpAction;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* CrouchAction;
