@@ -41,7 +41,8 @@ private:
 	UFUNCTION() void AddFightingGameInputDown();
 	UFUNCTION() void AddFightingGameInputLeft();
 	UFUNCTION() void AddFightingGameInputRight();
-	
+	UFUNCTION() void AddFightingGameInputNormal();
+	UFUNCTION() void AddFightingGameInputSpecial();
 	
 
 	UPROPERTY(EditAnywhere, category="Input") UInputMappingContext* MappingContext;
@@ -75,7 +76,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void EmptyCurrentMoves()
 	{
-		//FightingInput->EmptyArray();
+		FightingInput->EmptyArray();
 	}
 
 	UFUNCTION(BlueprintCallable)
@@ -106,5 +107,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Fighting Game Input") UInputAction* FightingInputDownAction;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Fighting Game Input") UInputAction* FightingInputLeftAction;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Fighting Game Input") UInputAction* FightingInputRightAction;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Fighting Game Input") UInputAction* FightingInputNormalAction;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Fighting Game Input") UInputAction* FightingInputSpecialAction;
 
 };

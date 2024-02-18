@@ -48,7 +48,6 @@ void UInputSystem::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 
 void UInputSystem::AddToInputs(EInputType input)
 {
-
 	FramesTillRestart = DefaultFramesTillRestart;
 	CurrentInputs.Add(input);
 
