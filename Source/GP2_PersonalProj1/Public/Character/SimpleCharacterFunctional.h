@@ -44,12 +44,14 @@ private:
 	
 	
 
-	UPROPERTY(VisibleAnywhere, Category="Fighting Game Input") UInputSystem* FightingInput;
 	UPROPERTY(EditAnywhere, category="Input") UInputMappingContext* MappingContext;
 	UPROPERTY(visibleAnywhere, Category="View") USpringArmComponent* CameraBoom;
 	UPROPERTY(visibleAnywhere, Category="View") UCameraComponent* ViewCamera;
 	
 public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Fighting Game Input") UInputSystem* FightingInput;
+
+	
 	UFUNCTION(BlueprintPure)
 	static float FramesToWait(int framesToWait = 20)
 	{
@@ -62,18 +64,18 @@ public:
 		if(FightingInput->CurrentInputs.Num() > pointToCheck)
 		{
 			nextInput = FightingInput->CheckInputAtArrayPoint(pointToCheck);
-			
+	
 		}
 		else
 		{
 			EmptyCurrentMoves();
 		}
 	}
-
+	
 	UFUNCTION(BlueprintCallable)
 	void EmptyCurrentMoves()
 	{
-		FightingInput->EmptyArray();
+		//FightingInput->EmptyArray();
 	}
 
 	UFUNCTION(BlueprintCallable)
@@ -83,12 +85,19 @@ public:
 
 	}
 	UFUNCTION(BlueprintCallable)
-	void LogOtherStuff()	
+	void LogOtherStuff()
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Combo Two Done"));
+		UE_LOG(LogTemp, Warning, TEXT("Combo 2 Done"));
 
 	}
 
+	UFUNCTION(BlueprintCallable)
+	void LogArrayMethod()
+	{
+		UE_LOG(LogTemp, Warning, TEXT("FUCKING GOT IT"));
+
+	}
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* MoveAction;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* JumpAction;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* CrouchAction;

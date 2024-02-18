@@ -18,6 +18,7 @@ UInputSystem::UInputSystem()
 void UInputSystem::BeginPlay()
 {
 	Super::BeginPlay();
+	
 	//CurrentInputs.Add(EInputType::Left);
 	// ...
 	
@@ -28,20 +29,45 @@ void UInputSystem::BeginPlay()
 void UInputSystem::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+
+	if(ArrayCompareMethod)
+	{
+		if(FramesTillRestart > 0)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("%d"), FramesTillRestart);
+			FramesTillRestart--;
+		}
+		else
+		{
+			EmptyArray();
+		}
+	}
 	
 	// ...
 }
 
 void UInputSystem::AddToInputs(EInputType input)
 {
-	UE_LOG(LogTemp, Warning, TEXT("%s"), *UEnum::GetValueAsString(input));	
 
 	FramesTillRestart = DefaultFramesTillRestart;
 	CurrentInputs.Add(input);
+
+
+	UE_LOG(LogTemp, Warning, TEXT("%d"), CurrentInputs.Num());
+
+	if(ArrayCompareMethod)
+	{
+		for (FCombo combo : Combos)
+		{
+			if(combo.Inputs == CurrentInputs)
+			{
+				combo.Function.Execute();	
+			}
+		}
+	}
 }
 
 EInputType UInputSystem::CheckInputAtArrayPoint(int32 pointToCheck)
 {
 	return CurrentInputs[pointToCheck];
 }
-

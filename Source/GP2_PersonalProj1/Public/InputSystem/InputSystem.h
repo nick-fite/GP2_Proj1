@@ -18,6 +18,20 @@ enum class EInputType : uint8
 	Special
 };
 
+
+DECLARE_DYNAMIC_DELEGATE(FFunctionDelegate);
+
+USTRUCT(BlueprintType)
+struct FCombo
+{
+
+	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<EInputType> Inputs;
+	//typedef void (*FunctionPointer)();
+	FFunctionDelegate Function;
+};
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class GP2_PERSONALPROJ1_API UInputSystem : public UActorComponent
 {
@@ -37,16 +51,25 @@ public:
 
 private:
 	UPROPERTY(EditDefaultsOnly) int DefaultFramesTillRestart{10};
-	UPROPERTY() int FramesTillRestart{10};
+	UPROPERTY(EditDefaultsOnly) bool ArrayCompareMethod{true};
 
+	UPROPERTY() int FramesTillRestart{10};
 
 public:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Fighting Game Inputs")
 	TArray<EInputType> CurrentInputs;
+
+	UPROPERTY(EditAnywhere) TArray<FCombo> Combos;
 	
 	UFUNCTION() void AddToInputs(EInputType input);
 	UFUNCTION() EInputType CheckInputAtArrayPoint(int32 pointToCheck);
 
+	UFUNCTION(BlueprintCallable)
+	void AddCombo(TArray<EInputType> inputs, FFunctionDelegate function)
+	{
+		Combos.Add({inputs, function});
+	}
+	
 	UFUNCTION()
 	void EmptyArray()
 	{
