@@ -79,25 +79,6 @@ public:
 		FightingInput->EmptyArray();
 	}
 
-	UFUNCTION(BlueprintCallable)
-	void LogStuff()	
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Combo Done"));
-
-	}
-	UFUNCTION(BlueprintCallable)
-	void LogOtherStuff()
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Combo 2 Done"));
-
-	}
-
-	UFUNCTION(BlueprintCallable)
-	void LogArrayMethod()
-	{
-		UE_LOG(LogTemp, Warning, TEXT("FUCKING GOT IT"));
-
-	}
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* MoveAction;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, category="Input") UInputAction* JumpAction;

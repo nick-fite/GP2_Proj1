@@ -34,7 +34,7 @@ void UInputSystem::TickComponent(float DeltaTime, ELevelTick TickType, FActorCom
 	{
 		if(FramesTillRestart > 0)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("%d"), FramesTillRestart);
+			//UE_LOG(LogTemp, Warning, TEXT("%d"), FramesTillRestart);
 			FramesTillRestart--;
 		}
 		else

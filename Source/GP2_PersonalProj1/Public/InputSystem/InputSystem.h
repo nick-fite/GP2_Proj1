@@ -15,7 +15,8 @@ enum class EInputType : uint8
 	Left,
 	Right,
 	Normal,
-	Special
+	Special,
+	COUNT UMETA(Hidden)
 };
 
 
