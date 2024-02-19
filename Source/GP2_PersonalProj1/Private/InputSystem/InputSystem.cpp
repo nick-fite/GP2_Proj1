@@ -58,9 +58,18 @@ void UInputSystem::AddToInputs(EInputType input)
 	{
 		for (FCombo combo : Combos)
 		{
-			if(combo.Inputs == CurrentInputs)
+			if(CurrentInputs.Num() >= combo.Inputs.Num())
 			{
-				combo.Function.Execute();	
+				TArray<EInputType> inputsToCheck;
+				for(int i = combo.Inputs.Num(); i > 0; i--)
+				{
+					inputsToCheck.Add(CurrentInputs[CurrentInputs.Num() - i]);
+				}
+			
+				if(combo.Inputs == inputsToCheck)
+				{
+					combo.Function.Execute();	
+				}
 			}
 		}
 	}
